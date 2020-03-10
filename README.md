@@ -1,13 +1,11 @@
-# TOTP Lambda
+# Slydepay integration
 
-This repo has all necessary to have a Google authenticator solution
-setup on AWS lambda.
+This repo has all necessary to files for slydepay integration.
 
 ## Folders
 
-- **client** Typescript client for TOTP
+- **client** Typescript client for slydepay integration
 - **server** Server code using Ferrum Network aws-lambda-handler
-- **uxComponent** A react component using the TotpClient above
 
 ## Security
 

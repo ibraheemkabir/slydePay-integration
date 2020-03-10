@@ -4,7 +4,7 @@ import axios from 'axios';
 import uuid from 'uuid-random';
 import { integer } from 'aws-sdk/clients/cloudfront';
 
-interface args {
+interface args {  
     type?: string,
     amount: integer,
     payOption?: string,
@@ -14,7 +14,11 @@ interface args {
 }
 
 export const createInvoice = async (req: args) => {
-    const {type,amount,payOption,customerName,customerMobileNumber,customerEmail} = req;
+    const {
+        type,amount,
+        payOption,customerName,
+        customerMobileNumber,customerEmail
+    } = req;
     if(type === "mobilemoney"){
         const send = await axios.post('https://app.slydepay.com.gh/api/merchant/invoice/create',
         {
