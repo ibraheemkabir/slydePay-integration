@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
 exports.MerchantCredentials = {
-    emailOrMobileNumber: 'germaine.ifudu@gmail.com',
-    merchantKey: "1563183830021"
+    emailOrMobileNumber: process.env.emailOrMobileNumber,
+    merchantKey: process.env.merchantKey
 };

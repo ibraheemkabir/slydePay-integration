@@ -1,4 +1,3 @@
-// Implement your specific handlers in a separate file
 import {LambdaHttpRequest, LambdaHttpResponse} from "aws-lambda-helper";
 import {LambdaHttpHandler} from "aws-lambda-helper/dist/HandlerFactory";
 import {SpHttpHandler} from "./SpHttpHandler";
@@ -8,6 +7,7 @@ export class HttpHandler implements LambdaHttpHandler {
     constructor(private spHandler: SpHttpHandler, private authVerifyer: AuthenticationVerifyer) { }
 
     async handle(request: LambdaHttpRequest, context: any): Promise<LambdaHttpResponse> {
+        
         if (!this.authVerifyer.isValid(request.headers)) {
             return {
                 body: 'Bad secret',

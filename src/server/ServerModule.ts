@@ -1,5 +1,4 @@
 import {Container, Module, SecretAuthProvider, ValidationUtils} from 'ferrum-plumbing';
-import {SecureKeyValueStore} from "./SecureKeyValueStore";
 import {HttpHandler} from "./HttpHandler";
 import {SpHttpHandler} from "./SpHttpHandler";
 import { AwsEnvs,SecretsProvider, MongooseConfig } from 'aws-lambda-helper';
@@ -18,7 +17,6 @@ export class ServerModule implements Module {
         container.register('LambdaHttpHandler',
                 c => new HttpHandler(c.get(SpHttpHandler),new SecretAuthProvider(secretsHandlerConfig.secret)));
         container.register("LambdaSqsHandler", () => new Object());
-        container.register(SecureKeyValueStore, c => new SecureKeyValueStore());
-        container.register(SpHttpHandler, c => new SpHttpHandler(c.get(SecureKeyValueStore)));
+        container.register(SpHttpHandler, c => new SpHttpHandler());
     }
 }

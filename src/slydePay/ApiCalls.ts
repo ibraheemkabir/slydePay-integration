@@ -1,11 +1,20 @@
-import fetch from 'node-fetch';
 import {MerchantCredentials} from './Types';
 import {tokenType} from './Types';
 import axios from 'axios';
 import uuid from 'uuid-random';
-import { request } from 'http';
+import { integer } from 'aws-sdk/clients/cloudfront';
 
-export const createInvoice = async (type: any,amount: any,payOption?: any,customerName?: any,customerMobileNumber?: any,customerEmail?: any) => {
+interface args {
+    type?: string,
+    amount: integer,
+    payOption?: string,
+    customerName?: string,
+    customerMobileNumber?: integer,
+    customerEmail?: string
+}
+
+export const createInvoice = async (req: args) => {
+    const {type,amount,payOption,customerName,customerMobileNumber,customerEmail} = req;
     if(type === "mobilemoney"){
         const send = await axios.post('https://app.slydepay.com.gh/api/merchant/invoice/create',
         {
@@ -30,7 +39,7 @@ export const createInvoice = async (type: any,amount: any,payOption?: any,custom
         {
             "emailOrMobileNumber": MerchantCredentials.emailOrMobileNumber,
             "merchantKey": MerchantCredentials.merchantKey,
-            "amount": 123.4,
+            "amount": amount,
             "orderCode": uuid(),
             "payOption": "SLYDEPAY",
              customerName,
@@ -65,7 +74,7 @@ export const confirmTransaction = async (payToken: tokenType) => {
     const confirm = await axios.post('https://app.slydepay.com.gh/api/merchant/transaction/confirm',{
         "emailOrMobileNumber": MerchantCredentials.emailOrMobileNumber,
         "merchantKey": MerchantCredentials.merchantKey,
-        "payToken": payToken,
+        "payToken": payToken
     }).then(
         (res: any) => {        
             return res.data

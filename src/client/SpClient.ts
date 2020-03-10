@@ -1,5 +1,5 @@
 import {Injectable, JsonRpcClient, JsonRpcRequest, SecretAuthProvider} from 'ferrum-plumbing';
-import {NewSeedRequest, NewSeedResult, VerifyTokenRequest, VerifyTokenResult} from "./Types";
+import {NewRequest, ConfirmRequest} from "./Types";
 import {context} from './../server/utils';
 import {handler} from '../..';
 
@@ -8,7 +8,7 @@ export class slidePayClient implements Injectable {
 
     __name__(): string { return 'slidePayClient'; }
 
-    async sendMoneyRequest(request: NewSeedRequest): Promise<any> {
+    async sendMoneyRequest(request: NewRequest): Promise<any> {
         const httpRequest = {
             command: 'sendMoneyRequest',
             params: [],
@@ -18,7 +18,7 @@ export class slidePayClient implements Injectable {
         return handler(httpRequest,context)
     }
 
-    async getRequestStatus(request: VerifyTokenRequest): Promise<any> {
+    async getRequestStatus(request: ConfirmRequest): Promise<any> {
         const httpRequest = {
             command: 'confirmRequestStatus',
             params: [],
@@ -28,7 +28,7 @@ export class slidePayClient implements Injectable {
 
     }
 
-    async confirmTransaction(request: VerifyTokenRequest): Promise<any> {
+    async confirmTransaction(request: ConfirmRequest): Promise<any> {
         const httpRequest = {
             command: 'confirmTransaction',
             params: [],
